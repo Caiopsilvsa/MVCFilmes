@@ -1,0 +1,72 @@
+﻿@model MVC_Filmes.Models.FilmeViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Adicionar Filme</a>
+</p>
+
+<form asp-controller = "Filmes" asp-action="Index" method="post">
+    <p>
+        Gêneros:
+        <select asp-for="GeneroEscolhido" asp-items="Model.Generos">
+            <option value="">Todos</option>
+        </select>
+
+        Título <input type="text" name="filmeDigitado" />
+        <input type="submit" value="Buscar" />
+    </p>    
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Filmes[0].Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filmes[0].Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filmes[0].DataDeLancamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filmes[0].Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filmes[0].Ponto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Filmes) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataDeLancamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ponto)
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
